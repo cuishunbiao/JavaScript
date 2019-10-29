@@ -1,19 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>JavaScript 装箱和拆箱</title>
-    </head>
-    <body>
-        <script>
-            var str = "Hello World!";
-            console.log(str.valueOf())
-            var arr = [1,2,3];
-            console.log(arr.valueOf())
-            var o = {'12':'23232'};
-            console.log(Object.keys(o).toString());
-        </script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  <script>
+      /*
+      什么是装箱？
+      基本类型封装成引用类型 就是装箱；
+      分为隐式的和显示的两种装箱方式。
+
+      隐式装箱「引擎自动执行」
+      装箱到底都做了什么？
+      let web = 'Javascript';
+      引擎会创建一个基本类型所对应的「包装类型的对象」。见下图。
+      会封装对象的方法和属性
+      console.log(web.__proto__);
+      console.log(web.__proto__.__proto__);
+
+      基本类型是不能添加属性和方法的，添加会报错。
+
+      let web = 'Javascript';
+      web.subText = 'JavaScriptSub';
+      web.subTextFn = function(){
+        console.log('JavascriptSubTextFn');
+      };
+      console.log(web.subText);//undefined
+      console.log(web.subTextFn());//Uncaught TypeError: web.subTextFn is not a function
+
+
+      显示装箱
+      let webStr = new String('Javascript');
+      显示装箱可以添加属性和方法。
+
+
+
+
+      什么是拆箱？
+      引用类型转成基本类型 就是拆箱；
+
+      为什么要拆箱？
+      如果数组转成数字，可以使用拆箱来解决；
+      一般拆箱需要先去获取「引用类型」的元始值，再然后去转成数字或者字符串；
+
+      */
+
+
+      //为什么要装箱？
+
+
+      //valueOf 解决什么问题？
+
+
+      //toString 在什么情况下不能转换？
+      
+
+      let web = 'Javascript';
+      web.subTextFn = function(){
+        console.log('JavascriptSubTextFn');
+      };
+      console.log(web.subTextFn());
+  </script>
+</body>
 </html>
