@@ -17,7 +17,7 @@
       let web = 'Javascript';
       
       在读取值的时候，引擎会创建一个基本类型所对应的「包装类型的对象」。见下图。
-      会封装对象的方法和属性
+      会封装对象的方法和属性，随后会清除包装的属性和方法。
 
       console.log(web.__proto__);
       console.log(web.__proto__.__proto__);
@@ -68,6 +68,8 @@
         web.valueOf();//获取原始值
         web.toString();
 
+        
+
 
 
       */
@@ -77,6 +79,7 @@
 
 
       //valueOf 解决什么问题？
+      
 
 
       //toString 在什么情况下不能转换？
@@ -101,7 +104,7 @@
     /*
 
     new Number
-    new 一些对象就可以出现  PrimitiveValue 元始值的 key 值
+    new 一些对象就可以出现  PrimitiveValue 元始值
     
     
     */
