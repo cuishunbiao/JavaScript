@@ -1,114 +1,159 @@
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
+
 <body>
-    <div id="abc"></div>
+  <div id="abc"></div>
   <script>
-      /*
-      什么是装箱？
-      基本类型封装成引用类型 就是装箱；
-      分为隐式的和显示的两种装箱方式。
+/*
+什么是装箱？
+基本类型封装成引用类型 就是装箱；
+分为隐式的和显示的两种装箱方式。
 
-      隐式装箱「引擎自动执行」
-      装箱到底都做了什么？
-      let web = 'Javascript';
-      
-      在读取值的时候，引擎会创建一个基本类型所对应的「包装类型的对象」。见下图。
-      会封装对象的方法和属性，随后会清除包装的属性和方法。
+隐式装箱「引擎自动执行」
+装箱到底都做了什么？
+let web = 'Javascript';
 
-      console.log(web.__proto__);
-      console.log(web.__proto__.__proto__);
+在读取值的时候，引擎会创建一个基本类型所对应的「包装类型的对象」。见下图。
+会封装对象的方法和属性，随后会清除包装的属性和方法。
 
-      基本类型是不能添加属性和方法的，添加会报错。
+console.log(web.__proto__);
+console.log(web.__proto__.__proto__);
 
-      let web = 'Javascript';
-      web.subText = 'JavaScriptSub';
-      web.subTextFn = function(){
-        console.log('JavascriptSubTextFn');
-      };
-      console.log(web.subText);//undefined
-      console.log(web.subTextFn());//Uncaught TypeError: web.subTextFn is not a function
+基本类型是不能添加属性和方法的，添加会报错。
 
-      基本类型的值是放在「栈」里面的，引用类型的值是放在「堆」里面的。
-      这个前提条件很重要。
-      var abc = 'abc';
-      存入栈中；
-      var abcArr = ['a','b','c'];
-      存入堆中，会生成一个指针；
-      变量 abc 和 指针存入栈中；放在「堆」里面的东西其实是['a','b','c']；
-      项目中经常会遇到的一个问题就是对象的「浅复制」问题；
-      var abcCopy = abcArr;
-      abcCopy[4] = 'd';
-      当你复制一个对象时，其实你复制的是一个对象的指针，「堆」里面就只有一个存储，由于指针是相同的，你修改「堆」里面的东西，
-      指针指向相同，所以 你复制的那个对象的值，也会发生变化。「指针相同」。
-      可以查看我之前写过的文章「」
+let web = 'Javascript';
+web.subText = 'JavaScriptSub';
+web.subTextFn = function(){
+console.log('JavascriptSubTextFn');
+};
+console.log(web.subText);//undefined
+console.log(web.subTextFn());//Uncaught TypeError: web.subTextFn is not a function
 
-
-      显示装箱
-      let webStr = new String('Javascript');
-      显示装箱可以添加属性和方法。
-
-      所以，我们在基本类型值上可以使用方法是因为有「装箱」操作。
+基本类型的值是放在「栈」里面的，引用类型的值是放在「堆」里面的。
+这个前提条件很重要。
+var abc = 'abc';
+存入栈中；
+var abcArr = ['a','b','c'];
+存入堆中，会生成一个指针；
+变量 abc 和 指针存入栈中；放在「堆」里面的东西其实是['a','b','c']；
+项目中经常会遇到的一个问题就是对象的「浅复制」问题；
+var abcCopy = abcArr;
+abcCopy[3] = 'd';
+当你复制一个对象时，其实你复制的是一个对象的指针，「堆」里面就只有一个存储，由于指针是相同的，你修改「堆」里面的东西，
+指针指向相同，所以 你复制的那个对象的值，也会发生变化。「指针相同」。
+可以查看我之前写过的文章「」
 
 
+显示装箱
+let webStr = new String('Javascript');
+显示装箱可以添加属性和方法。
+
+所以，我们在基本类型值上可以使用方法是因为有「装箱」操作。
 
 
 
-      什么是拆箱？
-      引用类型转成基本类型 就是拆箱；
 
-      为什么要拆箱？
-      如果数组转成数字，可以使用拆箱来解决；
-      一般拆箱需要先去获取「引用类型」的元始值，再然后去转成数字或者字符串；
-      获取原始值：
-        let web = [1,2,3,4];
-        web.valueOf();//获取原始值
-        web.toString();
 
-        
+什么是拆箱？
+引用类型转成基本类型 就是拆箱；
+
+为什么要拆箱？
+如果对象转成数字或者转成字符串，是要转成拆箱的。
 
 
 
-      */
 
 
-      //为什么要装箱？
+一般拆箱需要先去获取「引用类型」的元始值，再然后去转成数字或者字符串；
+获取原始值：
+let web = [1,2,3,4];
+web.valueOf();//获取原始值
+web.toString();
 
 
-      //valueOf 解决什么问题？
-      
+
+ToPrimitive
+
+判断 PreferredType 的值是哪种类型
+如果是 Number ?
+1.如果是基本类型，按原样返回。
+2.否则，输入是一个对象，调用 obj.valueOf() 方法，如果结果是原始的，则将其返回。
+3.否则，调用 obj.toString() 方法，如何结果是原始数据，则将其返回。
+4.否则，抛出 TypeError
+如果为 String ？
+交换 2和3 的执行顺序。
+
+如果没有 PreferredType ,对于 Date 的实例将其设置为 String。
+对于所有的其他值，设置为 Number。
 
 
-      //toString 在什么情况下不能转换？
-      
 
-    //   let web = 'Javascript';
-    //   web.subTextFn = function(){
-    //     console.log('JavascriptSubTextFn');
-    //   };
-    //   console.log(web.subTextFn());
+http://www.ecma-international.org/ecma-262/#sec-toprimitive
 
-    // let web = [1,2,3,4];
-    // let abc = 111;
-    var num = new Number(233);
-    var num1 = 233;
-    console.log(num.valueOf());
-    console.log(num1.valueOf());
-    
-    
+*/
 
 
-    /*
+//为什么要装箱？
 
-    new Number
-    new 一些对象就可以出现  PrimitiveValue 元始值
-    
-    
-    */
+
+//valueOf 解决什么问题？
+
+
+
+//toString 在什么情况下不能转换？
+
+
+//   let web = 'Javascript';
+//   web.subTextFn = function(){
+//     console.log('JavascriptSubTextFn');
+//   };
+//   console.log(web.subTextFn());
+
+// let web = [1,2,3,4];
+// let abc = 111;
+
+// var num = new Number(233);
+// num.valueOf = function(){
+//   console.log('valueOf');
+// }
+// num.toString = function(){
+//   console.log('toString');
+// }
+// console.log(num.valueOf());
+
+var web = {
+'name':'html',
+valueOf: () => {
+console.log("valueOf");
+},
+toString: () => {
+console.log("toString");
+}
+}
+console.log(String(web))//toString undefined
+console.log(Number(web))//valueOf NaN
+
+
+//显示装箱案例
+// let webStr = new String('Javascript');
+// webStr.addFunctionFn = function(){
+//   console.log('输出 addFunctionFn')
+// }
+// webStr.addFunctionFn();
+
+/*
+
+new Number
+new 一些对象就可以出现  PrimitiveValue 始值
+
+
+*/
 
   </script>
 </body>
+
 </html>
